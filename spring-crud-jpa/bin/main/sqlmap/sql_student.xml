@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dw.springcrudjpa.mapper.StudentMapper"> 
+<!-- Invalid bound statement (not found): com.dw.springcrudjpa.mapper.DeptMapper.selectDeptdw -->
+
+<!-- 조회하기 -->
+	<select id="selectStudent" resultType="com.dw.springcrudjpa.vo.StudentVO">
+     SELECT stu.student_num, stu.student_name, stu.age, stu.phone_num, stu.addr, dw.class_name
+     FROM student AS stu
+     INNER JOIN dept_dw AS dw ON stu.class_num = dw.class_num
+  </select>
+
+<select id="selectFindStudentNum" resultType="com.dw.springcrudjpa.vo.StudentVO">
+	SELECT stu.student_num, stu.student_name, stu.age, stu.phone_num, stu.addr, stu.class_num
+     FROM student AS stu
+     INNER JOIN dept_dw AS dw ON stu.class_num = dw.class_num
+     WHERE stu.student_num = #{student_num}
+</select>
+
+<insert id="insertStudent">
+	INSERT INTO student(student_name, age, phone_num, addr)
+	VALUES ( #{student_name}, #{age}, #{phone_num}, #{addr})
+</insert>
+
+<update id="updateStudent">
+	UPDATE student
+	SET  student_num = #{student_num}, student_name= #{student_name}, 
+		age = #{age},phone_num = #{phone_num}, addr = #{addr}
+	WHERE student_num = #{student_num}
+</update>
+<delete id="deleteStudent">
+	DELETE FROM student
+	WHERE student_num = #{student_num}
+</delete>
+
+</mapper>
